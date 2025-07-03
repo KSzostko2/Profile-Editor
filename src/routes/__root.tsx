@@ -1,15 +1,21 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-
-import Header from '../components/Header'
+import { Column, Content, Grid } from '@carbon/react'
+import { AppHeader } from '@/components/AppHeader.tsx'
+import { Footer } from '@/components/Footer.tsx'
 
 export const Route = createRootRoute({
   component: () => (
     <>
-      <Header />
+      <AppHeader />
 
-      <Outlet />
-      <TanStackRouterDevtools />
+      <Content id="main-content">
+        <Grid>
+          <Column lg={{ span: 13, offset: 3 }}>
+            <Outlet />
+            <Footer />
+          </Column>
+        </Grid>
+      </Content>
     </>
   ),
 })
