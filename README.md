@@ -1,3 +1,6 @@
 # Comments
 
 - In the [Anatomy of a global header](https://carbondesignsystem.com/patterns/global-header/#anatomy-of-a-global-header) section I did not find any mention of adding a logo in the form of the image/svg, co I've decided to stick with the text logo.
+- For such small applications with only one basic form it might not be entirely necessary to use libraries for form handling and schema validation but generally in bigger apps some kind of library for handling forms is used and I wanted to verify how smooth it would be to integrate `react hook form` with `carbon/react` form controls.
+- For form schema validation I considered using `zod` or `yup`, mainly verifying whether they can handle file validations. I think that they both can do that and I went with `zod` just because it was mentioned in the company's tech stack.
+- `DatePicker` component is pretty complex so I've decided to stick to handling only `datePickerType="single"` to keep it simple but in the actual full app `datePickerType="range"` would need to be handled differently than the solution here.

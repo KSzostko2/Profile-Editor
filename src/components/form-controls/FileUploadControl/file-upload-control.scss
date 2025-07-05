@@ -1,0 +1,9 @@
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/spacing' as *;
+
+.error-text {
+  @include type-style('label-01');
+  color: var(--cds-text-error, #da1e28);
+  display: block;
+  margin-top: $spacing-02;
+}
