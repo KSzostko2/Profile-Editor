@@ -1,0 +1,9 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.heading {
+  margin-bottom: $spacing-10;
+}
+
+.submit-button {
+  justify-self: flex-end;
+}

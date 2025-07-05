@@ -35,9 +35,6 @@ export function AppHeader() {
               <SideNavLink as={Link} href="/" renderIcon={Fade}>
                 <SideNavLinkText>Home</SideNavLinkText>
               </SideNavLink>
-              <SideNavLink as={Link} href="/profile" renderIcon={Fade}>
-                <SideNavLinkText>Profile</SideNavLinkText>
-              </SideNavLink>
             </SideNavItems>
           </SideNav>
         </Header>

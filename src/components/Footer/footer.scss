@@ -1,0 +1,21 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/type' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+
+.page-footer {
+  // side-nav width
+  margin-left: 256px;
+  background-color: $gray-90;
+  padding: $spacing-06;
+
+  @include breakpoint-down('lg') {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  &__text {
+    @include type-style('legal-02');
+    color: $white;
+  }
+}
