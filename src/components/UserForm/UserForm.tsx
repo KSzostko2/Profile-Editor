@@ -1,10 +1,12 @@
 import {
   Button,
+  Column,
   DatePicker,
   DatePickerInput,
   FileUploader,
   Form,
   FormGroup,
+  Grid,
   Stack,
   TextArea,
   TextInput,
@@ -17,15 +19,23 @@ export function UserForm() {
     <Form aria-label="user form">
       <h1 className="heading">Create User</h1>
       <Stack gap={7}>
-        <Stack gap={7} orientation="horizontal">
-          <TextInput name="firstName" id="firstName" labelText="First Name" />
-          <TextInput name="lastName" id="lastName" labelText="Last Name" />
-        </Stack>
+        <Grid>
+          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+            <TextInput name="firstName" id="firstName" labelText="First Name" />
+          </Column>
+          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+            <TextInput name="lastName" id="lastName" labelText="Last Name" />
+          </Column>
+        </Grid>
 
-        <Stack gap={7} orientation="horizontal">
-          <TextInput name="email" id="email" labelText="Email" type="email" />
-          <TextInput name="phoneNumber" id="phoneNumber" labelText="Phone number" />
-        </Stack>
+        <Grid>
+          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+            <TextInput name="email" id="email" labelText="Email" type="email" />
+          </Column>
+          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+            <TextInput name="phoneNumber" id="phoneNumber" labelText="Phone number" />
+          </Column>
+        </Grid>
 
         <DatePicker datePickerType="single">
           <DatePickerInput id="birthDate" labelText="Birthday" placeholder="mm/dd/yyyy" />

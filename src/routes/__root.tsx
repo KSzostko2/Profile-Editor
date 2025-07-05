@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 
       <Content id="main-content">
         <Grid>
-          <Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 12, offset: 4 }} xlg={{ span: 13, offset: 3 }}>
+          <Column sm={{ span: 4 }} md={{ span: 8 }} lg={{ span: 12, offset: 4 }} xlg={{ span: 14, offset: 2 }}>
             <Outlet />
           </Column>
         </Grid>
