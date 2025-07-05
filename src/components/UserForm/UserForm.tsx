@@ -1,4 +1,4 @@
-import { Button, Column, Form, Grid, Stack } from '@carbon/react'
+import { Button, Column, Form, Grid, Heading, Stack } from '@carbon/react'
 import './form.scss'
 import { ArrowRight } from '@carbon/icons-react'
 import { z } from 'zod/v4'
@@ -36,7 +36,7 @@ export function UserForm() {
 
   return (
     <Form aria-label="User form" noValidate onSubmit={hookForm.handleSubmit(handleSubmit)}>
-      <h1 className="heading">Create User</h1>
+      <Heading className="heading">Create User</Heading>
       <Stack gap={7}>
         <Grid>
           <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>

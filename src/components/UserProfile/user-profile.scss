@@ -1,0 +1,56 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/breakpoint' as *;
+
+.user-profile {
+  display: flex;
+  gap: $spacing-12;
+  padding: $spacing-08;
+  background: $gray-20;
+  border-radius: 10px;
+
+  @include breakpoint-down('lg') {
+    gap: $spacing-08;
+  }
+
+  @include breakpoint-down('md') {
+    flex-direction: column;
+    padding: $spacing-08 $spacing-06;
+  }
+
+  &__avatar {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid $white;
+  }
+
+  &__name {
+    margin-top: $spacing-04;
+    margin-bottom: $spacing-08;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__about {
+    margin-top: $spacing-06;
+    max-width: 90ch;
+  }
+
+  &__info-list {
+    @include breakpoint-down('md') {
+      align-self: flex-start;
+    }
+  }
+
+  &__info {
+    display: flex;
+    gap: $spacing-04;
+    margin-bottom: $spacing-06
+  }
+}
