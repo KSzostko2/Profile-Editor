@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import type { User } from '@/model/User.ts'
+import type { ApiUser } from '@/model/User.ts'
 import { userQueryKeys } from '@/api/user/userQueryKeys.ts'
 
-export interface CreateUserRequestBody extends Omit<User, 'id'> {}
+export interface CreateUserRequestBody extends Omit<ApiUser, 'id'> {}
 
 export function useCreateUser() {
   const queryClient = useQueryClient()
@@ -11,7 +11,7 @@ export function useCreateUser() {
     mutationFn: async (variables: CreateUserRequestBody) => {
       await new Promise((resolve) =>
         setTimeout(() => {
-          sessionStorage.setItem('user', JSON.stringify(variables))
+          sessionStorage.setItem('user', JSON.stringify({ ...variables, id: '1' }))
           resolve(variables)
         }, 500),
       )

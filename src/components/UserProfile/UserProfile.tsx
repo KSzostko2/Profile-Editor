@@ -1,10 +1,10 @@
 import './user-profile.scss'
 import { Heading, Section } from '@carbon/react'
 import { Calendar, Email, Phone } from '@carbon/icons-react'
-import type { User } from '@/model/User.ts'
+import type { ApiUser } from '@/model/User.ts'
 
 interface Props {
-  user: User
+  user: ApiUser
 }
 
 export function UserProfile(props: Props) {
