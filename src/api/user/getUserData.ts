@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { queryOptions } from '@tanstack/react-query'
 import type { ApiUser } from '@/model/User.ts'
 import { apiUserSchema } from '@/model/User.ts'
 import { userQueryKeys } from '@/api/user/userQueryKeys.ts'
@@ -18,21 +18,19 @@ async function fetchUser() {
   )
 }
 
-export function useQueryGetUserData() {
-  return useQuery({
-    queryKey: userQueryKeys.getUserData(),
-    queryFn: async () => {
-      const userData = await fetchUser()
+export const getUsersDataQueryOptions = queryOptions({
+  queryKey: userQueryKeys.getUserData(),
+  queryFn: async () => {
+    const userData = await fetchUser()
 
-      const { data, success, error } = apiUserSchema.safeParse(userData)
+    const { data, success, error } = apiUserSchema.safeParse(userData)
 
-      if (success) {
-        return data
-      }
+    if (success) {
+      return data
+    }
 
-      console.error(error.message)
-      throw new Error(`Malformed user data: ${error.message}`)
-    },
-    retry: false,
-  })
-}
+    console.error(error.message)
+    throw new Error(`Malformed user data: ${error.message}`)
+  },
+  retry: false,
+})

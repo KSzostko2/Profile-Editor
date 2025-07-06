@@ -1,36 +1,55 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Loading, Section } from '@carbon/react'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { Button, Section, Stack } from '@carbon/react'
+import { useQueryErrorResetBoundary, useSuspenseQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
+import { WatsonHealthRotate_360 } from '@carbon/icons-react'
+import type { ErrorComponentProps } from '@tanstack/react-router'
 import { UserProfile } from '@/components/UserProfile/UserProfile'
-import { useQueryGetUserData } from '@/api/user/useQueryGetUserData.ts'
+import { getUsersDataQueryOptions } from '@/api/user/getUserData.ts'
 
 export const Route = createFileRoute('/profile')({
+  loader: ({ context: { queryClient } }) => queryClient.ensureQueryData(getUsersDataQueryOptions),
+  errorComponent: ProfileErrorPage,
   component: ProfilePage,
 })
 
+function ProfileErrorPage(props: ErrorComponentProps) {
+  const { error } = props
+
+  const router = useRouter()
+  const queryErrorResetBoundary = useQueryErrorResetBoundary()
+
+  const isMissingDataError = error.message.includes('Missing user data')
+
+  if (isMissingDataError) {
+    return <p>User profile not found, please fill out form to get the data here.</p>
+  }
+
+  useEffect(() => {
+    queryErrorResetBoundary.reset()
+  }, [queryErrorResetBoundary])
+
+  return (
+    <Stack gap={3}>
+      <p>An error occurred, please try again</p>
+      <Button
+        onClick={() => {
+          router.invalidate()
+        }}
+        renderIcon={WatsonHealthRotate_360}
+      >
+        Retry
+      </Button>
+    </Stack>
+  )
+}
+
 function ProfilePage() {
-  const userQuery = useQueryGetUserData()
-
-  if (userQuery.isLoading) {
-    return <Loading active description="Loading user data..." />
-  }
-
-  if (userQuery.isError) {
-    const isMissingDataError = userQuery.error.message.includes('Missing user data')
-
-    if (isMissingDataError) {
-      return <p>User profile not found, please fill out form to get the data here.</p>
-    }
-
-    return <p>An error occurred, please try again</p>
-  }
-
-  if (!userQuery.data) {
-    return <p>User not found</p>
-  }
+  const { data } = useSuspenseQuery(getUsersDataQueryOptions)
 
   return (
     <Section level={1}>
-      <UserProfile user={userQuery.data} />
+      <UserProfile user={data} />
     </Section>
   )
 }

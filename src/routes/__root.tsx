@@ -1,9 +1,10 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { Column, Content, Grid } from '@carbon/react'
+import type { QueryClient } from '@tanstack/query-core'
 import { AppHeader } from '@/components/AppHeader.tsx'
 import { Footer } from '@/components/Footer/Footer.tsx'
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   component: () => (
     <>
       <AppHeader />
