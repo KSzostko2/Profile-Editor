@@ -6,11 +6,12 @@ export function useQueryGetUserData() {
   return useQuery({
     queryKey: userQueryKeys.getUserData(),
     queryFn: async () => {
-      return await new Promise<User>((resolve) =>
+      return await new Promise<User>((resolve, reject) =>
         setTimeout(() => {
           const user = sessionStorage.getItem('user')
           if (user === null) {
-            throw new Error('Invalid user data')
+            reject(new Error('Invalid user data'))
+            return
           }
 
           const parsedData = JSON.parse(user)
@@ -18,5 +19,6 @@ export function useQueryGetUserData() {
         }, 500),
       )
     },
+    retry: false,
   })
 }

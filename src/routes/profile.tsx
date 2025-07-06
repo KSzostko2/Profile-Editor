@@ -14,8 +14,8 @@ function ProfilePage() {
     return <Loading active description="Loading user data..." />
   }
 
-  if (userQuery.data === undefined) {
-    return <p>User not found</p>
+  if (userQuery.isError || userQuery.data === undefined) {
+    return <p>User profile not found, please fill out form to get the data here.</p>
   }
 
   return (
