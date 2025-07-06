@@ -22,7 +22,13 @@ export function UserProfile(props: Props) {
   return (
     <div className="user-profile">
       <div className="user-profile__header">
-        <img className="user-profile__avatar" src={user.avatarUrl} alt={`${user.firstName} ${user.lastName} avatar`} />
+        <img
+          className="user-profile__avatar"
+          src={user.avatarUrl}
+          alt={`${user.firstName} ${user.lastName} avatar`}
+          loading="lazy"
+          decoding="async"
+        />
         <Heading className="user-profile__name">
           {user.firstName} {user.lastName}
         </Heading>
