@@ -13,6 +13,7 @@ import { zDatePicker } from '@/lib/zDatePicker.ts'
 import { FileUploaderControl } from '@/components/form-controls/FileUploadControl/FileUploaderControl.tsx'
 import { zFile } from '@/lib/zFile.ts'
 import { useCreateUser } from '@/api/user/useCreateUser.tsx'
+import { fileToBase64 } from '@/lib/fileToBase64.ts'
 
 const userFormSchema = z.object({
   firstName: z.string('Required').trim().min(1),
@@ -26,14 +27,16 @@ const userFormSchema = z.object({
 
 type UserFormSchema = z.infer<typeof userFormSchema>
 
-function mapToCreationApi(formData: UserFormSchema): CreateUserRequestBody {
+async function mapToCreationApi(formData: UserFormSchema): Promise<CreateUserRequestBody> {
+  const avatarBase64 = await fileToBase64(formData.avatar)
+
   return {
     firstName: formData.firstName,
     lastName: formData.lastName,
     email: formData.email,
     phoneNumber: formData.phoneNumber,
     birthDate: formData.birthDate[0].toISOString(),
-    avatarUrl: formData.avatar.name,
+    avatarRawBase64: avatarBase64,
     bio: formData.bio,
   }
 }
@@ -47,8 +50,10 @@ export function UserForm() {
     resolver,
   })
 
-  function handleSubmit(data: UserFormSchema) {
-    createUser.mutate(mapToCreationApi(data), {
+  async function handleSubmit(data: UserFormSchema) {
+    const mappedData = await mapToCreationApi(data)
+
+    createUser.mutate(mappedData, {
       onSuccess: () => {
         navigate({ to: '/profile' })
       },

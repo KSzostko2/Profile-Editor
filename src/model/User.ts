@@ -5,6 +5,6 @@ export interface User {
   email: string
   phoneNumber: string
   birthDate: string
-  avatarUrl: string
+  avatarRawBase64: string
   bio: string
 }

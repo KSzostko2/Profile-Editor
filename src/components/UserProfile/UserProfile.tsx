@@ -15,7 +15,7 @@ export function UserProfile(props: Props) {
       <div className="user-profile__header">
         <img
           className="user-profile__avatar"
-          src={user.avatarUrl}
+          src={user.avatarRawBase64}
           alt={`${user.firstName} ${user.lastName} avatar`}
           loading="lazy"
           decoding="async"
