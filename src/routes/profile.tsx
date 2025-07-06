@@ -1,25 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Section } from '@carbon/react'
+import { Loading, Section } from '@carbon/react'
 import { UserProfile } from '@/components/UserProfile/UserProfile'
+import { useQueryGetUserData } from '@/api/user/useQueryGetUserData.ts'
 
 export const Route = createFileRoute('/profile')({
   component: ProfilePage,
 })
 
 function ProfilePage() {
+  const userQuery = useQueryGetUserData()
+
+  if (userQuery.isLoading) {
+    return <Loading active description="Loading user data..." />
+  }
+
+  if (userQuery.data === undefined) {
+    return <p>User not found</p>
+  }
+
   return (
     <Section level={1}>
-      <UserProfile
-        user={{
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          phoneNumber: '+48123456789',
-          birthDate: new Date('2020-04-12'),
-          avatarUrl: 'https://picsum.photos/id/237/200/300',
-          bio: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam eveniet facere incidunt iusto labore libero minus modi nihil numquam odit, officiis, omnis quam ratione repellendus saepe, suscipit tempore voluptatum.',
-        }}
-      />
+      <UserProfile user={userQuery.data} />
     </Section>
   )
 }

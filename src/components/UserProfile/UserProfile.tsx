@@ -1,16 +1,7 @@
 import './user-profile.scss'
 import { Heading, Section } from '@carbon/react'
 import { Calendar, Email, Phone } from '@carbon/icons-react'
-
-interface User {
-  firstName: string
-  lastName: string
-  email: string
-  phoneNumber: string
-  birthDate: Date
-  avatarUrl: string
-  bio: string
-}
+import type { User } from '@/model/User.ts'
 
 interface Props {
   user: User
@@ -44,7 +35,7 @@ export function UserProfile(props: Props) {
           </li>
           <li className="user-profile__info">
             <Calendar size={20} aria-label="Birth date" />
-            <span>{user.birthDate.toLocaleDateString()}</span>
+            <span>{new Date(user.birthDate).toLocaleDateString()}</span>
           </li>
         </ul>
       </div>

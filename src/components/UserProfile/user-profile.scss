@@ -25,9 +25,14 @@
     border-radius: 50%;
     border: 3px solid $white;
 
+    // This ensures that alt text is properly visible when the image cannot be loaded
+    line-height: 200px;
+    text-align: center;
+
     @include breakpoint-down('lg') {
       width: 150px;
       height: 150px;
+      line-height: 150px;
     }
   }
 

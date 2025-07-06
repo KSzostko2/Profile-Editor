@@ -1,15 +1,18 @@
-import { Button, Column, Form, Grid, Heading, Stack } from '@carbon/react'
+import { Button, Column, Form, Grid, Heading, InlineLoading, Stack } from '@carbon/react'
 import './form.scss'
 import { ArrowRight } from '@carbon/icons-react'
 import { z } from 'zod/v4'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import type { CreateUserRequestBody } from '@/api/user/useCreateUser.tsx'
 import { TextInputControl } from '@/components/form-controls/TextInputControl.tsx'
 import { TextAreaControl } from '@/components/form-controls/TextAreaControl.tsx'
 import { DatePickerInputControl } from '@/components/form-controls/DatePickerInputControl.tsx'
 import { zDatePicker } from '@/lib/zDatePicker.ts'
 import { FileUploaderControl } from '@/components/form-controls/FileUploadControl/FileUploaderControl.tsx'
 import { zFile } from '@/lib/zFile.ts'
+import { useCreateUser } from '@/api/user/useCreateUser.tsx'
 
 const userFormSchema = z.object({
   firstName: z.string('Required').trim().min(1),
@@ -23,15 +26,33 @@ const userFormSchema = z.object({
 
 type UserFormSchema = z.infer<typeof userFormSchema>
 
-export function UserForm() {
-  const resolver = zodResolver(userFormSchema)
+function mapToCreationApi(formData: UserFormSchema): CreateUserRequestBody {
+  return {
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phoneNumber: formData.phoneNumber,
+    birthDate: formData.birthDate[0].toISOString(),
+    avatarUrl: formData.avatar.name,
+    bio: formData.bio,
+  }
+}
 
+export function UserForm() {
+  const navigate = useNavigate()
+  const createUser = useCreateUser()
+
+  const resolver = zodResolver(userFormSchema)
   const hookForm = useForm<UserFormSchema>({
     resolver,
   })
 
   function handleSubmit(data: UserFormSchema) {
-    console.log(data)
+    createUser.mutate(mapToCreationApi(data), {
+      onSuccess: () => {
+        navigate({ to: '/profile' })
+      },
+    })
   }
 
   return (
@@ -89,9 +110,20 @@ export function UserForm() {
           rows={4}
         />
 
-        <Button className="submit-button" type="submit" renderIcon={ArrowRight}>
-          Submit
-        </Button>
+        {createUser.isPending || createUser.isSuccess ? (
+          <div className="inline-loading-container">
+            <InlineLoading
+              status={createUser.isSuccess ? 'finished' : 'active'}
+              description={createUser.isSuccess ? 'Created!' : 'Creating'}
+              iconDescription="Creating user..."
+              successDelay={1000}
+            />
+          </div>
+        ) : (
+          <Button className="submit-button" type="submit" renderIcon={ArrowRight}>
+            Submit
+          </Button>
+        )}
       </Stack>
     </Form>
   )
