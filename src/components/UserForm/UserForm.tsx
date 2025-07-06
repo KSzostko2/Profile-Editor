@@ -65,19 +65,19 @@ export function UserForm() {
       <Heading className="heading">Create User</Heading>
       <Stack gap={7}>
         <Grid>
-          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} max={{ span: 7 }}>
             <TextInputControl control={hookForm.control} name="firstName" id="firstName" labelText="First Name" />
           </Column>
-          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} max={{ span: 7 }}>
             <TextInputControl control={hookForm.control} name="lastName" id="lastName" labelText="Last Name" />
           </Column>
         </Grid>
 
         <Grid>
-          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+          <Column sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} max={{ span: 7 }}>
             <TextInputControl control={hookForm.control} name="email" id="email" labelText="Email" type="email" />
           </Column>
-          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} xlg={{ span: 7 }}>
+          <Column className="last-grid-col" sm={{ span: 4 }} md={{ span: 4 }} lg={{ span: 6 }} max={{ span: 7 }}>
             <TextInputControl control={hookForm.control} name="phoneNumber" id="phoneNumber" labelText="Phone number" />
           </Column>
         </Grid>

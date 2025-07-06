@@ -54,8 +54,10 @@
   }
 
   &__info-list {
+    align-self: flex-start;
+
     @include breakpoint-down('md') {
-      align-self: flex-start;
+      align-self: center;
     }
   }
 
