@@ -19,15 +19,15 @@ function ProfileErrorPage(props: ErrorComponentProps) {
   const router = useRouter()
   const queryErrorResetBoundary = useQueryErrorResetBoundary()
 
+  useEffect(() => {
+    queryErrorResetBoundary.reset()
+  }, [queryErrorResetBoundary])
+
   const isMissingDataError = error.message.includes('Missing user data')
 
   if (isMissingDataError) {
     return <p>User profile not found, please fill out form to get the data here.</p>
   }
-
-  useEffect(() => {
-    queryErrorResetBoundary.reset()
-  }, [queryErrorResetBoundary])
 
   return (
     <Stack gap={3}>
