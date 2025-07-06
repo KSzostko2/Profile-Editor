@@ -16,6 +16,7 @@
     "@carbon/icons-react": "^11.62.0",
     "@carbon/react": "^1.85.1",
     "@hookform/resolvers": "^5.1.1",
+    "@netlify/vite-plugin": "^2.3.5",
     "@tanstack/react-query": "^5.81.5",
     "@tanstack/react-router": "^1.121.2",
     "@tanstack/react-router-devtools": "^1.121.2",

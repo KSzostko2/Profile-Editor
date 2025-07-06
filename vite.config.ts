@@ -2,6 +2,7 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import viteReact from '@vitejs/plugin-react'
+import netlify from '@netlify/vite-plugin'
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 
@@ -13,6 +14,7 @@ export default defineConfig({
       autoCodeSplitting: true,
     }),
     viteReact(),
+    netlify(),
   ],
   test: {
     globals: true,
