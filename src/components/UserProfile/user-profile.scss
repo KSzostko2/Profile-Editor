@@ -50,6 +50,7 @@
   &__about {
     margin-top: $spacing-06;
     max-width: 90ch;
+    white-space: pre-wrap;
   }
 
   &__info-list {
